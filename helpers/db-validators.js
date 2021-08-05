@@ -1,3 +1,5 @@
+const { Producto } = require('../models');
+const Categoria  = require('../models/categoria');
 const Role = require('../models/role');
 const Usuario = require('../models/usuario');
 
@@ -22,12 +24,40 @@ const existeUsuarioPorId = async (id) => {
     const existeUsuario = await Usuario.findById(id);
 
     if(!existeUsuario) {
-        throw new Error(`El id no existe: ${id}`);
+        throw new Error(`El id del usuario no existe: ${id}`);
+    }
+}
+
+
+const existeCategoria = async (id) => {
+
+    const categoria = await Categoria.findById(id);
+
+    if(!categoria) {
+        throw new Error(`El id de la categoria no existe: ${id}`);
+    }
+}
+
+const existeProducto = async (id) => {
+
+    const producto = await Producto.findById(id);
+
+    if(!producto) {
+        throw new Error(`El id del producto no existe: ${id}`);
+    }
+}
+
+const esNumerico = async (number) => {
+    if(isNaN(number)){
+        throw new Error(`El valor ${number} no es numérico`);
     }
 }
 
 module.exports = {
     esRolValido,
     emailExiste,
-    existeUsuarioPorId
+    existeUsuarioPorId,
+    existeCategoria,
+    existeProducto,
+    esNumerico
 }
